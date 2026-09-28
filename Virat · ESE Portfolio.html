@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Virat · ESE Portfolio</title>
+<meta name="description" content="Portfolio of Virat, an ESE student building embedded systems, circuits and signal-processing projects.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F3F5F2;--surface:#FFFFFF;--ink:#10261D;--muted:#4A5F55;--line:#CFD8D2;
+  --board:#0E3B2C;--on-board:#EAF2ED;--trace:#F2C230;--accent:#17704B;--accent-ink:#FFFFFF;
+  --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0B1511;--surface:#12211A;--ink:#E6EFE9;--muted:#A3B5AB;--line:#264035;--board:#0A2A20;--accent:#5FD19A;--accent-ink:#06170F}}
+:root[data-theme="dark"]{
+  --bg:#0B1511;--surface:#12211A;--ink:#E6EFE9;--muted:#A3B5AB;--line:#264035;--board:#0A2A20;--accent:#5FD19A;--accent-ink:#06170F}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 72px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.65 var(--body)}
+h1,h2,h3{font-family:var(--display);line-height:1.1;margin:0}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--trace);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 1.25rem}
+.skip{position:absolute;left:1rem;top:-4rem;background:var(--trace);color:#10261D;padding:.6rem 1rem;border-radius:6px;z-index:20}
+.skip:focus{top:calc(env(safe-area-inset-top,0px) + .5rem)}
+
+/* Navbar */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--board);color:var(--on-board)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;min-height:60px}
+.brand{font:700 1.25rem var(--display);color:var(--on-board);text-decoration:none}
+.nav ul{display:flex;gap:.25rem;list-style:none;margin:0;padding:0}
+.nav a.link{display:block;padding:.5rem .8rem;color:var(--on-board);text-decoration:none;border-radius:6px}
+.nav a.link:hover,.nav a.link[aria-current="true"]{background:rgba(255,255,255,.14)}
+.tools{display:flex;gap:.5rem}
+.btn-ic{background:transparent;border:1px solid rgba(234,242,237,.5);color:var(--on-board);border-radius:8px;min-width:44px;min-height:44px;font:500 .95rem var(--body);cursor:pointer}
+.menu{display:none}
+@media (max-width:760px){
+  .menu{display:inline-block}
+  .nav ul{display:none;position:absolute;left:0;right:0;top:100%;background:var(--board);flex-direction:column;padding:.5rem 1.25rem 1rem;border-top:1px solid rgba(255,255,255,.15)}
+  .nav ul.open{display:flex}
+}
+
+/* Hero */
+.hero{background:var(--board);color:var(--on-board);padding:4rem 0 0;overflow:hidden}
+.hero h1{font-size:clamp(3rem,10vw,6.5rem);letter-spacing:-.03em}
+.hero .role{font:500 1.25rem var(--display);color:var(--trace);margin:1rem 0 .5rem}
+.hero p{max-width:34rem;color:#CFE0D6;margin:0 0 1.75rem}
+.cta{display:flex;flex-wrap:wrap;gap:.75rem}
+.btn{display:inline-block;padding:.8rem 1.4rem;border-radius:8px;font-weight:500;text-decoration:none;border:2px solid var(--trace);min-height:44px}
+.btn.solid{background:var(--trace);color:#10261D}
+.btn.ghost{color:var(--on-board)}
+.btn:hover{filter:brightness(1.12)}
+.scope{margin-top:2.5rem;border-top:1px solid rgba(234,242,237,.25);padding:1rem 0 1.25rem}
+.scope canvas{display:block;width:100%;height:120px}
+.scope label{display:flex;align-items:center;gap:1rem;font-size:.95rem;color:#CFE0D6;flex-wrap:wrap}
+.scope input[type=range]{flex:1;min-width:160px;accent-color:var(--trace);height:28px}
+
+/* Sections */
+section.block{padding:4.5rem 0}
+.block h2{font-size:clamp(2rem,5vw,3rem);margin-bottom:1.5rem}
+.block.alt{background:var(--surface);border-block:1px solid var(--line)}
+.about{display:grid;gap:2rem;grid-template-columns:1.4fr 1fr}
+.facts{margin:0;padding:1.25rem;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.alt .facts{background:var(--bg)}
+.facts dt{color:var(--muted);font-size:.9rem}.facts dd{margin:0 0 .9rem;font-weight:500}
+.facts dd:last-child{margin:0}
+@media (max-width:760px){.about{grid-template-columns:1fr}}
+
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem}
+.skills h3{font-size:1.2rem;margin-bottom:.75rem}
+.skills ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.5rem}
+.skills li{border:1.5px solid var(--accent);color:var(--ink);padding:.25rem .8rem;border-radius:999px;font-size:.95rem}
+
+.projects{display:grid;gap:1.25rem}
+.proj{display:grid;grid-template-columns:5rem 1fr auto;gap:1.25rem;align-items:start;padding:1.5rem;border:1px solid var(--line);border-left:6px solid var(--accent);border-radius:4px 12px 12px 4px;background:var(--surface)}
+.proj .tag{font:700 .9rem var(--display);color:var(--muted)}
+.proj h3{font-size:1.5rem;margin-bottom:.4rem}
+.proj p{margin:0 0 .6rem;color:var(--muted);max-width:60ch}
+.proj .stack{font-size:.9rem;color:var(--ink)}
+@media (max-width:760px){.proj{grid-template-columns:1fr}}
+
+.contact{display:grid;gap:2.5rem;grid-template-columns:1fr 1.2fr}
+@media (max-width:760px){.contact{grid-template-columns:1fr}}
+.contact address{font-style:normal}
+.contact li{margin-bottom:.5rem}
+ul.plain{list-style:none;padding:0;margin:0}
+form{display:grid;gap:1rem}
+.field label{display:block;font-weight:500;margin-bottom:.3rem}
+.field input,.field textarea{width:100%;font:inherit;padding:.75rem .9rem;background:var(--surface);color:var(--ink);border:1.5px solid var(--muted);border-radius:8px}
+.field input[aria-invalid="true"],.field textarea[aria-invalid="true"]{border-color:#C0392B;border-width:2px}
+.err{color:#B3261E;font-size:.9rem;min-height:1.2em;margin:.2rem 0 0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .err{color:#FF9C92}}
+:root[data-theme="dark"] .err{color:#FF9C92}
+form .btn{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);cursor:pointer;font:500 1rem var(--body);justify-self:start}
+#status{min-height:1.5em;color:var(--muted);margin:0}
+
+footer{background:var(--board);color:var(--on-board);padding:2rem 0;font-size:.95rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between}
+footer a{color:var(--trace)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div id="navbar"></div>
+<main id="main" tabindex="-1">
+  <div id="hero"></div>
+  <div id="about"></div>
+  <div id="skills"></div>
+  <div id="projects"></div>
+  <div id="contact"></div>
+</main>
+<div id="footer"></div>
+
+<script>
+/* ============ EDIT YOUR DETAILS HERE ============ */
+const DATA = {
+  name: "Virat",
+  department: "ESE",
+  role: "Embedded systems & electronics engineer",
+  tagline: "I design circuits, write firmware and turn noisy signals into something useful.",
+  about: [
+    "I'm a student in the ESE department who enjoys working where hardware meets software. I like taking an idea from a schematic to a working board with code running on it.",
+    "Right now I'm focused on low-power embedded devices and real-time signal processing."
+  ],
+  facts: [["Department","ESE"],["Focus","Embedded, DSP, IoT"],["Status","Open to internships"]],
+  skills: {
+    "Embedded": ["C / C++","Arduino","ESP32","STM32","RTOS basics"],
+    "Electronics": ["Circuit design","PCB layout (KiCad)","Analog filters","Oscilloscope & lab tools"],
+    "Software": ["Python","MATLAB","JavaScript","Git"]
+  },
+  projects: [
+    {title:"Smart Energy Monitor",desc:"ESP32-based meter that logs current and voltage, then shows live usage on a web dashboard.",stack:"ESP32, C++, MQTT",link:"https://github.com/virat/energy-monitor"},
+    {title:"Digital Filter Toolkit",desc:"Python and MATLAB scripts that design FIR/IIR filters and compare their frequency responses.",stack:"Python, MATLAB, NumPy",link:"https://github.com/virat/filter-toolkit"},
+    {title:"Line-Following Robot",desc:"A PID-controlled robot with a custom sensor board and motor driver, built for a campus contest.",stack:"Arduino, PCB, PID",link:"https://github.com/virat/line-robot"}
+  ],
+  social: [["GitHub","https://github.com/virat"],["LinkedIn","https://www.linkedin.com/in/virat"],["Instagram","https://www.instagram.com/virat"]],
+  email: "virat@example.com",
+  phone: "+91 00000 00000"
+};
+/* ================================================= */
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const NAV = [["about","About"],["skills","Skills"],["projects","Projects"],["contact","Contact"]];
+
+/* ---- Components: each returns markup ---- */
+const Navbar = d => `
+<header class="nav"><div class="wrap">
+  <a class="brand" href="#main" aria-label="${esc(d.name)}, back to top">${esc(d.name)}</a>
+  <nav aria-label="Main">
+    <ul id="menu">${NAV.map(([id,t]) => `<li><a class="link" href="#${id}">${t}</a></li>`).join("")}</ul>
+  </nav>
+  <div class="tools">
+    <button class="btn-ic" id="theme" type="button" aria-label="Toggle dark mode" aria-pressed="false">◐</button>
+    <button class="btn-ic menu" id="menuBtn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+  </div>
+</div></header>`;
+
+const Hero = d => `
+<section class="hero" aria-labelledby="h-name"><div class="wrap">
+  <h1 id="h-name">${esc(d.name)}</h1>
+  <p class="role">${esc(d.role)}</p>
+  <p>${esc(d.tagline)}</p>
+  <div class="cta">
+    <a class="btn solid" href="#projects">See my projects</a>
+    <a class="btn ghost" href="#contact">Get in touch</a>
+  </div>
+  <div class="scope">
+    <canvas id="wave" aria-hidden="true"></canvas>
+    <label for="freq">Signal frequency <input id="freq" type="range" min="1" max="12" value="4" aria-describedby="freqHelp"></label>
+    <span id="freqHelp" class="sr" hidden>Changes the decorative waveform above.</span>
+  </div>
+</div></section>`;
+
+const About = d => `
+<section class="block" id="about" aria-labelledby="h-about"><div class="wrap">
+  <h2 id="h-about">About me</h2>
+  <div class="about">
+    <div>${d.about.map(p => `<p>${esc(p)}</p>`).join("")}</div>
+    <dl class="facts">${d.facts.map(([k,v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
+  </div>
+</div></section>`;
+
+const Skills = d => `
+<section class="block alt" id="skills" aria-labelledby="h-skills"><div class="wrap">
+  <h2 id="h-skills">Skills</h2>
+  <div class="skills">${Object.entries(d.skills).map(([g,l]) => `
+    <div><h3>${esc(g)}</h3><ul>${l.map(s => `<li>${esc(s)}</li>`).join("")}</ul></div>`).join("")}
+  </div>
+</div></section>`;
+
+const Projects = d => `
+<section class="block" id="projects" aria-labelledby="h-projects"><div class="wrap">
+  <h2 id="h-projects">Projects</h2>
+  <div class="projects">${d.projects.map(p => `
+    <article class="proj">
+      <span class="tag" aria-hidden="true">Build</span>
+      <div><h3>${esc(p.title)}</h3><p>${esc(p.desc)}</p><span class="stack">${esc(p.stack)}</span></div>
+      <a class="btn ghost" style="color:var(--accent);border-color:var(--accent)" href="${esc(p.link)}" target="_blank" rel="noopener">View code<span class="sr-only" style="position:absolute;left:-9999px"> for ${esc(p.title)} (opens in a new tab)</span></a>
+    </article>`).join("")}
+  </div>
+</div></section>`;
+
+const Contact = d => `
+<section class="block alt" id="contact" aria-labelledby="h-contact"><div class="wrap">
+  <h2 id="h-contact">Contact</h2>
+  <div class="contact">
+    <address>
+      <p>Have a project or an internship in mind? Send a message and I'll reply by email.</p>
+      <ul class="plain">
+        <li>Email: <a href="mailto:${esc(d.email)}">${esc(d.email)}</a></li>
+        <li>Phone: <a href="tel:${esc(d.phone.replace(/\s/g,''))}">${esc(d.phone)}</a></li>
+        ${d.social.map(([n,u]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(n)}<span style="position:absolute;left:-9999px"> (opens in a new tab)</span></a></li>`).join("")}
+      </ul>
+    </address>
+    <form id="form" novalidate aria-label="Contact form">
+      <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" autocomplete="name" required aria-describedby="e-name"><p class="err" id="e-name"></p></div>
+      <div class="field"><label for="f-email">Your email</label><input id="f-email" name="email" type="email" autocomplete="email" required aria-describedby="e-email"><p class="err" id="e-email"></p></div>
+      <div class="field"><label for="f-msg">Message</label><textarea id="f-msg" name="msg" rows="5" required aria-describedby="e-msg"></textarea><p class="err" id="e-msg"></p></div>
+      <button class="btn" type="submit">Open in email app</button>
+      <p id="status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</div></section>`;
+
+const Footer = d => `
+<footer><div class="wrap">
+  <span>© ${new Date().getFullYear()} ${esc(d.name)} · ${esc(d.department)} department</span>
+  <a href="#main">Back to top</a>
+</div></footer>`;
+
+/* ---- Render ---- */
+$("#navbar").innerHTML = Navbar(DATA);
+$("#hero").innerHTML = Hero(DATA);
+$("#about").innerHTML = About(DATA);
+$("#skills").innerHTML = Skills(DATA);
+$("#projects").innerHTML = Projects(DATA);
+$("#contact").innerHTML = Contact(DATA);
+$("#footer").innerHTML = Footer(DATA);
+
+/* ---- Behaviour ---- */
+// Mobile menu
+const menu = $("#menu"), menuBtn = $("#menuBtn");
+const setMenu = open => { menu.classList.toggle("open", open); menuBtn.setAttribute("aria-expanded", open); };
+menuBtn.onclick = () => setMenu(!menu.classList.contains("open"));
+menu.addEventListener("click", e => { if (e.target.closest("a")) setMenu(false); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && menu.classList.contains("open")) { setMenu(false); menuBtn.focus(); } });
+
+// Theme toggle (remembered per viewer when storage is available)
+const root = document.documentElement, themeBtn = $("#theme");
+const isDark = () => root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme:dark)").matches;
+try { const t = localStorage.getItem("theme"); if (t) root.dataset.theme = t; } catch (e) {}
+themeBtn.setAttribute("aria-pressed", isDark());
+themeBtn.onclick = () => {
+  root.dataset.theme = isDark() ? "light" : "dark";
+  themeBtn.setAttribute("aria-pressed", isDark());
+  try { localStorage.setItem("theme", root.dataset.theme); } catch (e) {}
+};
+
+// Active nav link
+const links = [...document.querySelectorAll("a.link")];
+NAV.forEach(([id]) => {
+  new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) links.forEach(l => l.setAttribute("aria-current", l.getAttribute("href") === "#" + id));
+  }), { rootMargin: "-40% 0px -55% 0px" }).observe(document.getElementById(id));
+});
+
+// Hero waveform (decorative oscilloscope trace)
+const cv = $("#wave"), ctx = cv.getContext("2d"), fr = $("#freq");
+const still = matchMedia("(prefers-reduced-motion:reduce)").matches;
+let t = 0;
+function draw() {
+  const dpr = devicePixelRatio || 1, w = cv.clientWidth, h = cv.clientHeight;
+  if (cv.width !== w * dpr) { cv.width = w * dpr; cv.height = h * dpr; }
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, w, h);
+  ctx.strokeStyle = "rgba(234,242,237,.12)"; ctx.lineWidth = 1;
+  for (let x = 0; x < w; x += 40) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke(); }
+  ctx.beginPath(); ctx.moveTo(0, h / 2); ctx.lineTo(w, h / 2); ctx.stroke();
+  ctx.strokeStyle = "#F2C230"; ctx.lineWidth = 2.5; ctx.beginPath();
+  const f = +fr.value;
+  for (let x = 0; x <= w; x += 2) {
+    const p = x / w * Math.PI * 2 * f + t;
+    const y = h / 2 - (Math.sin(p) + Math.sin(p * 3) / 3 + Math.sin(p * 5) / 5) * h * .28;  // square-wave harmonics
+    x ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+  }
+  ctx.stroke();
+  if (!still) { t += .03; requestAnimationFrame(draw); }
+}
+fr.addEventListener("input", () => still && draw());
+addEventListener("resize", draw);
+draw();
+
+// Contact form → mailto
+const form = $("#form");
+const check = (id, errId, msg, ok) => {
+  const el = $(id), bad = !ok(el.value.trim());
+  el.setAttribute("aria-invalid", bad); $(errId).textContent = bad ? msg : ""; return bad ? el : null;
+};
+form.addEventListener("submit", e => {
+  e.preventDefault();
+  const bad = [
+    check("#f-name", "#e-name", "Enter your name.", v => v.length > 1),
+    check("#f-email", "#e-email", "Enter a valid email, like name@example.com.", v => /^\S+@\S+\.\S+$/.test(v)),
+    check("#f-msg", "#e-msg", "Write a short message.", v => v.length > 4)
+  ].filter(Boolean);
+  if (bad.length) { bad[0].focus(); $("#status").textContent = ""; return; }
+  const n = $("#f-name").value.trim(), m = $("#f-msg").value.trim(), from = $("#f-email").value.trim();
+  const body = `${m}\n\n— ${n} (${from})`;
+  location.href = `mailto:${DATA.email}?subject=${encodeURIComponent("Portfolio message from " + n)}&body=${encodeURIComponent(body)}`;
+  $("#status").textContent = "Your email app should open with the message ready to send.";
+});
+</script>
+</body>
+</html>
